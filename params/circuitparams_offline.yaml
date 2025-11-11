@@ -1,0 +1,661 @@
+# 0.5 dt | 6 | pyr -> pyr potentiation 1.25e-4 | int -> pyr potentiation 2.5e-6 | place 1.0e-3 cue 3.25e-3
+# 0.1 dt | 6 | pyr -> pyr potentiation 1.0e-4 | int -> pyr potentiation 2.5e-6 | place 9.0e-4 cue 3.0e-3
+
+
+Circuit:
+    scale: 1
+    cells: ['PyramidalCell', 'BasketCell', 'AACell', 'BistratifiedCell', 'OLMCell', 'VIPCCKCell', 'VIPCRCell']
+    ncells: [130, 8, 2, 2, 2, 1, 4]
+    symplasticity:
+        wmax_scaler: 3 # 20.0
+        potentiation: 0  #0.6
+        depression: 0  #0.8
+        thresh: -55.0
+        dtau: 34.0  #65.0
+        ptau: 17.0  #65.0
+        wmin: 0.0005
+    asymplasticity:
+        wmax_scaler: 20.0
+        potentiation: 4.0e-4
+        depression: 6.0e-4
+        thresh: -10.0
+        dtau: 34.0
+        ptau: 17.0
+    internal connectivity:
+        0: # src = PYR
+            0: # PYR -> PYR
+                probability: [5]
+                connection: [1]
+                synapse:
+                    0:
+                        type: 'AMPA'
+                        weight1: 4.2e-3
+                        compartments: ['radTprox']
+                gradient:
+                  cue:
+                    mean: 0.6
+                    scale: 0.025
+                  place:
+                    mean: 1.0
+                    scale: 0.025
+            1: # PYR -> BC
+                probability: [35]
+                connection: [2]
+                synapse:
+                    0:
+                        type: 'AMPA'
+                        weight1: 7.7e-4
+                        tau1: 0.07
+                        tau2: 0.20
+                        e:    0.
+                        compartments: ['oriProx1', 'oriProx2']
+            2: # PYR -> AA
+                probability: [14]
+                connection: [2]
+                synapse:
+                    0:
+                        type: 'AMPA'
+                        weight1: 4.0e-5 #1.0e-1
+                        tau1: 0.30 #0.50
+                        tau2: 0.60 #3.0
+                        e: 0.
+                        compartments: ['oriProx1', 'oriProx2']
+            3: # PYR -> BiS
+                probability: [31]
+                connection: [2]
+                synapse:
+                    0:
+                        type: 'AMPA'
+                        weight1: 1.9e-3
+                        tau1: 0.11
+                        tau2: 0.250
+                        e: 0.0
+                        compartments: ['oriProx1', 'oriProx2']
+            4: # PYR -> OLM
+                probability: [198]
+                connection: [2]
+                synapse:
+                    0:
+                        type: 'AMPA'
+                        weight1: 2.0e-4
+                        tau1: 0.30
+                        tau2: 0.60
+                        e: 0.0
+                        compartments: ['dend1', 'dend2']
+            5: # PYR -> VIPCCK
+                probability: [115]
+                connection: [2]
+                synapse:
+                    0:
+                        type: 'AMPA'
+                        weight1: 5.0e-4
+                        tau1: 0.5
+                        tau2: 3.0
+                        e: 0.0
+                        compartments: ['oriProx1', 'oriProx2']
+            6: # PYR -> VIPCR
+                probability: [115]
+                connection: [2]
+                synapse:
+                    0:
+                        type: 'AMPA'
+                        weight1: 5.0e-4
+                        tau1: 0.5
+                        tau2: 3.0
+                        e: 0.0
+                        compartments: ['oriProx1', 'oriProx2']
+
+        1: # src = BC
+            0: # BC -> PYR
+                probability: [5]
+                connection: [1]
+                synapse:
+                    0:
+                        type: 'GABAA'
+                        weight1: 3.6e-4
+                        tau1: 0.30
+                        tau2: 6.20
+                        e: -75.
+                        compartments: ['soma']
+            1: # BC -> BC
+                probability: [1]
+                connection: [1]
+                synapse:
+                    0:
+                        type: 'GABAA'
+                        weight1: 1.76e-3
+                        tau1: 0.08
+                        tau2: 4.80
+                        e: -75.
+                        compartments: ['soma']
+            2: # BC -> AA
+                probability: [1]
+                connection: [1]
+                synapse:
+                    0:
+                        type: 'GABAA'
+                        weight1: 1.32e-4
+                        tau1: 0.29
+                        tau2: 2.67
+                        e: -75.
+                        compartments: ['soma']
+            3: # BC -> BiS
+                probability: [1]
+                connection: [1]
+                synapse:
+                    0:
+                        type: 'GABAA'
+                        weight1: 3.19e-3
+                        tau1: 0.29
+                        tau2: 2.67
+                        e: -75
+                        compartments: ['soma']
+            5: # BC -> VIPCCK
+                probability: [1]
+                connection: [1]
+                synapse:
+                    0:
+                        type: 'GABAA'
+                        weight1: 1.32e-3
+                        tau1: 0.29
+                        tau2: 2.67
+                        e: -75
+                        compartments: ['soma']
+
+        2: # src = AA
+            0: # AA-> PYR
+                probability: [1]
+                connection: [1]
+                synapse:
+                    0:
+                        type: 'GABAA' #'STDPE2'
+                        weight1: 2.07e-3
+                        tau1: 0.28
+                        tau2: 8.40
+                        e: -75.
+                        compartments: ['axon']
+
+        3: # src = BiS
+            1: # BiS -> BC
+                probability: [4]
+                connection: [2]
+                synapse:
+                    0:
+                    type: 'GABAA'
+                    weight1: 9.9e-3
+                    tau1: 0.29
+                    tau2: 2.67
+                    e: -75.0
+                    compartments: ['radMed1', 'radMed2']
+
+            2: # BiS -> AA
+                probability: [4]
+                connection: [2]
+                synapse:
+                    0:
+                        type: 'GABAA'
+                        weight1: 6.6e-4
+                        tau1: 0.29
+                        tau2: 2.67
+                        e: -75.0
+                        compartments: ['radMed1', 'radMed2']
+
+            3: # BiS -> BiS
+                probability: [4]
+                connection: [2]
+                synapse:
+                    0:
+                        type: 'GABAA'
+                        weight1: 5.61e-4
+                        tau1: 0.29
+                        tau2: 2.67
+                        e: -75.0
+                        compartments: ['radMed1', 'radMed2']
+
+            4: # BiS -> OLM
+                probability: [11]
+                connection: [2]
+                synapse:
+                    0:
+                        type: 'GABAA'
+                        weight1: 1.76e-5
+                        tau1: 1.0
+                        tau2: 8.0
+                        e: -75.0
+                        compartments: ['dend1', 'dend2']
+            5: # BiS -> VIPCCK
+                probability: [4]
+                connection: [2]
+                synapse:
+                    0:
+                        type: 'GABAA'
+                        weight1: 8.8e-4
+                        tau1: 0.29
+                        tau2: 2.67
+                        e: -75.0
+                        compartments: ['radMed1', 'radMed2']
+
+        4: # src = OLM
+            0: # OLM -> PYR
+                probability: [1, 1]
+                connection: [8, 8]
+                synapse:
+                    0:
+                        type: 'GABAA'
+                        weight1: 5.4e-4
+                        tau1: 0.13
+                        tau2: 11.0
+                        e: -75.0
+                        compartments: ['lm_thick1', 'lm_medium1', 'radTdist', 'radTdist', 'lm_thick2', 'lm_medium2', 'radTdist', 'radTdist']
+                    1:
+                        type: 'GABAB'
+                        weight1: 5.4e-4
+                        compartments: ['lm_thick1', 'lm_medium1', 'radTdist', 'radTdist', 'lm_thick2', 'lm_medium2', 'radTdist', 'radTdist']
+
+        5: # src = VIPCCK
+            0: # VIPCCK -> PYR
+                probability: [3]
+                connection: [1]
+                synapse:
+                    0:
+                        type: 'GABAA'
+                        weight1: 1.8e-4
+                        tau1: 0.70
+                        tau2: 7.10
+                        e: -75.0
+                        compartments: ['soma']
+
+        6: # VIPCR
+            1: # VIPCR -> BC
+                probability: [3]
+                connection: [1]
+                synapse:
+                    0:
+                        type: 'GABAA'
+                        weight1: 4.95e-2
+                        tau1: 0.43
+                        tau2: 4.49
+                        e: -75.0
+                        compartments: ['soma']
+            4: # VIPCR -> OLM
+                probability: [11]
+                connection: [1]
+                synapse:
+                    0:
+                        type: 'GABAA'
+                        weight1: 1.386e-3
+                        tau1: 1.0
+                        tau2: 8.0
+                        e: -75.0
+                        compartments: ['soma']
+
+    external connectivity:
+        100: # CA3
+            0: # PYR
+                probability: [6, 6, 6, 6]
+                connection: [6, 6, 6, 6]
+                synapse:
+                    0:
+                        type: 'AMPA'
+                        weight1: 3.0e-4
+                        compartments: ['rad_medium1', 'rad_thin1a', 'rad_thin1b', 'rad_medium2', 'rad_thin2a', 'rad_thin2b']
+                    1:
+                        type: 'AMPA'
+                        weight1: 3.0e-4
+                        compartments: [ 'rad_medium1', 'rad_thin1a', 'rad_thin1b', 'rad_medium2', 'rad_thin2a', 'rad_thin2b' ]
+                    2:
+                        type: 'AMPA'
+                        weight1: 3.0e-4
+                        compartments: ['oriprox1', 'oridist1a', 'oridist1b', 'oriprox2', 'oridist2a', 'oridist2b']
+                    3:
+                        type: 'NMDA'
+                        weight1: 3.0e-4
+                        compartments: [ 'oriprox1', 'oridist1a', 'oridist1b', 'oriprox2', 'oridist2a', 'oridist2b' ]
+            1: # BC
+                probability: [336]
+                connection: [4]
+                synapse:
+                    0:
+                        type: 'AMPA'
+                        weight1: 4.862e-4
+                        tau1: 2.0
+                        tau2: 6.3
+                        e: 0.
+                        compartments: ['radMed1', 'radMed2', 'radProx1', 'radProx2']
+            2: # AA
+                probability: [232]
+                connection: [4] #336
+                synapse:
+                    0:
+                        type: 'AMPA'
+                        weight1: 1.872e-4
+                        tau1: 2.0
+                        tau2: 6.3
+                        e: 0.
+                        compartments: ['radMed1', 'radMed2', 'radProx1', 'radProx2']
+            3: # BiS
+                probability: [321]
+                connection: [4]
+                synapse:
+                    0:
+                        type: 'AMPA'
+                        weight1: 2.925e-4
+                        tau1: 2.0
+                        tau2: 6.3
+                        e: 0.
+                        compartments: ['radMed1', 'radMed2', 'radProx1', 'radProx2']
+            4: # OLM
+                probability: [56]
+                connection: [2]
+                synapse:
+                    0:
+                        type: 'AMPA'
+                        weight1: 1.638e-4
+                        tau1: 2.0
+                        tau2: 6.3
+                        e: 0.
+                        compartments: ['dend1', 'dend2']
+            5: # VIPCCK
+                probability: [111]
+                connection: [4]
+                synapse:
+                    0:
+                        type: 'AMPA'
+                        weight1: 1.5015e-4
+                        tau1: 2.0
+                        tau2: 6.3
+                        e: 0.
+                        compartments: ['radMed1', 'radMed2', 'radProx1', 'radProx2']
+            6: # VIPCR
+                probability: [139]
+                connection: [4]
+                synapse:
+                    0:
+                        type: 'AMPA'
+                        weight1: 1.365e-4
+                        tau1: 2.0
+                        tau2: 6.3
+                        e: 0.
+                        compartments: ['radProx1', 'radProx2', 'radMed1', 'radMed2']
+
+        101: # EC
+            0:
+                probability: [8, 8]
+                connection: [6, 6]
+                synapse:
+                    0:
+                        type: 'AMPA'
+                        weight1: 3.0e-4
+                        compartments: ['lm_medium1', 'lm_thin1a', 'lm_thin1b', 'lm_medium2', 'lm_thin2a', 'lm_thin2b']
+                    1:
+                        type: 'NMDA'
+                        weight1: 3.0e-4
+                        compartments: ['lm_medium1', 'lm_thin1a', 'lm_thin1b', 'lm_medium2', 'lm_thin2a', 'lm_thin2b']
+            1:
+                probability: [4]
+                connection: [2]
+                synapse:
+                    0:
+                        type: 'AMPA'
+                        weight1: 0.169e-4
+                        tau1: 2.0
+                        tau2: 6.3
+                        e: 0.
+                        compartments: ['lmM1', 'lmM2']
+            2:
+                probability: [27]
+                connection: [2]
+                synapse:
+                    0:
+                        type: 'AMPA'
+                        weight1: 1.56e-4
+                        tau1: 2.0
+                        tau2: 6.3
+                        e: 0.
+                        compartments: ['lmM1', 'lmM2']
+            3:
+                probability: [24]
+                connection: [2]
+                synapse:
+                    0:
+                        type: 'AMPA'
+                        weight1: 2.34e-4
+                        tau1: 2.0
+                        tau2: 6.3
+                        e: 0.
+                        compartments: ['radMed1', 'radMed2']
+            5:
+                probability: [8]
+                connection: [2]
+                synapse:
+                    0:
+                        type: 'AMPA'
+                        weight1: 4.68e-4
+                        tau1: 2.0
+                        tau2: 6.3
+                        e: 0.
+                        compartments: ['lmM1', 'lmM2']
+            6:
+                probability: [31]
+                connection: [2]
+                synapse:
+                    0:
+                        type: 'AMPA'
+                        weight1: 3.9e-4
+                        tau1: 2.0
+                        tau2: 6.3
+                        e: 0.
+                        compartments: ['lmM1', 'lmM2']
+        102: # LEC
+            0:
+                probability: [8, 8]
+                connection: [6, 6]
+                synapse:
+                    0:
+                        type: 'AMPA'
+                        weight1: 3.0e-4 #4.0e-4 #6.0e-4
+                        compartments: [ 'lm_medium1', 'lm_thin1a', 'lm_thin1b', 'lm_medium2', 'lm_thin2a', 'lm_thin2b' ]
+                    1:
+                        type: 'NMDA'
+                        weight1: 3.0e-4 #4.0e-4 #6.0e-4
+                        compartments: [ 'lm_medium1', 'lm_thin1a', 'lm_thin1b', 'lm_medium2', 'lm_thin2a', 'lm_thin2b' ]
+            1:
+                probability: [4]
+                connection: [2]
+                synapse:
+                    0:
+                        type: 'AMPA'
+                        weight1: 0.169e-4 #1.2e-4
+                        tau1: 2.0
+                        tau2: 6.3
+                        e: 0.
+                        compartments: [ 'lmM1', 'lmM2' ]
+            2:
+                probability: [27]
+                connection: [2]
+                synapse:
+                    0:
+                        type: 'AMPA'
+                        weight1: 1.56e-4
+                        tau1: 2.0
+                        tau2: 6.3
+                        e: 0.
+                        compartments: ['lmM1', 'lmM2']
+            3:
+                probability: [24]
+                connection: [2]
+                synapse:
+                    0:
+                        type: 'AMPA'
+                        weight1: 2.34e-4
+                        tau1: 2.0
+                        tau2: 6.3
+                        e: 0.
+                        compartments: ['radMed1', 'radMed2']
+            5:
+                probability: [8]
+                connection: [2]
+                synapse:
+                    0:
+                        type: 'AMPA'
+                        weight1: 4.68e-4
+                        tau1: 2.0
+                        tau2: 6.3
+                        e: 0.
+                        compartments: ['lmM1', 'lmM2']
+            6:
+                probability: [31]
+                connection: [2]
+                synapse:
+                    0:
+                        type: 'AMPA'
+                        weight1: 3.9e-4
+                        tau1: 2.0
+                        tau2: 6.3
+                        e: 0.
+                        compartments: ['lmM1', 'lmM2']
+        103: # Background
+            0:
+                probability: [20, 20, 20, 20, 20, 20, 10]
+                connection: [6, 6, 6, 6, 6, 6, 1]
+                synapse:
+                    0:
+                        type: 'AMPA'
+                        weight1: 6.18e-4
+                        compartments: [ 'lm_medium1', 'lm_thin1a', 'lm_thin1b', 'lm_medium2', 'lm_thin2a', 'lm_thin2b' ]
+                    1:
+                        type: 'NMDA'
+                        weight1: 6.18e-4
+                        compartments: [ 'lm_medium1', 'lm_thin1a', 'lm_thin1b', 'lm_medium2', 'lm_thin2a', 'lm_thin2b' ]
+                    2:
+                        type: 'AMPA'
+                        weight1: 6.18e-4
+                        compartments: ['rad_medium1', 'rad_thin1a', 'rad_thin1b', 'rad_medium2', 'rad_thin2a', 'rad_thin2b']
+                    3:
+                        type: 'NMDA'
+                        weight1: 6.18e-4
+                        compartments: [ 'rad_medium1', 'rad_thin1a', 'rad_thin1b', 'rad_medium2', 'rad_thin2a', 'rad_thin2b' ]
+                    4:
+                        type: 'AMPA'
+                        weight1: 6.18e-4
+                        compartments: [ 'oriprox1', 'oridist1a', 'oridist1b', 'oriprox2', 'oridist2a', 'oridist2b' ]
+                    5:
+                        type: 'NMDA'
+                        weight1: 6.18e-4
+                        compartments: [ 'oriprox1', 'oridist1a', 'oridist1b', 'oriprox2', 'oridist2a', 'oridist2b' ]
+                    6:
+                        type: 'GABAA'
+                        weight1: 6.18e-4
+                        tau1: 0.30
+                        tau2: 6.20
+                        e: -75.
+                        compartments: ['soma']
+
+
+    Septal:
+        ncells: 10
+        parameters:
+            number: 10000
+            start: 500
+            interval: 20.0
+            noise: 0.40
+            THETA: 125
+            tmax: 33830
+
+        connectivity:
+            1:
+                probability: [10, 10]
+                connection: [2, 2]
+                synapse:
+                    0:
+                        type: 'GABAA'
+                        weight1: 8.0e-5
+                        tau1: 1.0
+                        tau2: 8.0
+                        e: -75.0
+                        compartments: [ 'oriProx1', 'oriProx2' ]
+                    1:
+                        type: 'GABAB'
+                        weight1: 8.0e-5
+                        compartments: [ 'oriProx1', 'oriProx2' ]
+            2:
+                probability: [10, 10]
+                connection: [2, 2]
+                synapse:
+                    0:
+                        type: 'GABAA'
+                        weight1: 2.0e-4
+                        tau1: 1.0
+                        tau2: 8.0
+                        e: -75.0
+                        compartments: ['oriProx1', 'oriProx2']
+                    1:
+                        type: 'GABAB'
+                        weight1: 2.0e-4
+                        compartments: ['oriProx1', 'oriProx2']
+            3:
+                probability: [10, 10]
+                connection: [2, 2]
+                synapse:
+                    0:
+                        type: 'GABAA'
+                        weight1: 8.0e-4
+                        tau1: 1.0
+                        tau2: 8.0
+                        e: -75.0
+                        compartments: ['oriProx1', 'oriProx2']
+                    1:
+                        type: 'GABAB'
+                        weight1: 8.0e-4
+                        compartments: ['oriProx1', 'oriProx2']
+            4:
+                probability: [10, 10]
+                connection: [1, 1]
+                synapse:
+                    0:
+                        type: 'GABAA'
+                        weight1: 0.1e-6
+                        tau1: 1.0
+                        tau2: 8.0
+                        e: -75.0
+                        compartments: ['soma']
+                    1:
+                        type: 'GABAB'
+                        weight1: 0.1e-6
+                        compartments: ['soma']
+            5:
+                probability: [10, 10]
+                connection: [2, 2]
+                synapse:
+                    0:
+                        type: 'GABAA'
+                        weight1: 6.0e-4
+                        tau1: 1.0
+                        tau2: 8.0
+                        e: -75.0
+                        compartments: ['oriProx1', 'oriProx2']
+                    1:
+                        type: 'GABAB'
+                        weight1: 6.0e-4
+                        compartments: ['oriProx1', 'oriProx2']
+            6:
+                probability: [10, 10]
+                connection: [2, 2]
+                synapse:
+                    0:
+                        type: 'GABAA'
+                        weight1: 2.0e-4
+                        tau1: 1.0
+                        tau2: 8.0
+                        e: -75.0
+                        compartments: ['oriProx1', 'oriProx2']
+                    1:
+                        type: 'GABAB'
+                        weight1: 2.0e-4
+                        compartments: ['oriProx1', 'oriProx2']
+
+
+
+    internal seed: 101
+    external seed: 1001
+    septal seed: 10001
