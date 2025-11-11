@@ -1,0 +1,55 @@
+Arena:
+    arena size: 200 # in cm
+    mouse speed: 30 # in cm/s
+    bin size: 0.10 # in cm
+    lap information:
+        nlaps: 25
+        is spatial: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+    random seed: 1000000
+    frac place: 0.75 # not used, defined elsewhere
+
+Arena Cells:
+    CA3:
+        id: 100
+        ncells: 246
+        place:
+            peak rates: [20]
+            peak rate probabilities: [1]
+            min rate: 0.1
+            diameter: 25 #in cm
+            probabilities: [0.0, 0.63, 0.24, 0.13] #[0.88, 0.075, 0.029, 0.016]
+        noise:
+            mean rate: 1.0 #0.1
+            scale: 0.0
+
+    EC:
+        id: 101
+        ncells: 328
+        grid:
+            peak rates: [20]
+            peak rate probabilities: [1]
+            min rate: 0.1
+            diameter: 25 #in cm
+            gap: 50 #in cm
+        noise:
+            mean rate: 1.0 #0.1
+            scale: 0.0
+            
+    LEC:
+        id: 102
+        ncells: 123
+        cue:
+            peak rates: [20]
+            peak rate probabilities: [1]
+            min rate: 0.1
+            diameter: 25
+        noise:
+            mean rate: 1.0 #0.1
+            scale: 0.0
+
+    Background:
+        id: 103
+        ncells: 1000
+        noise:
+            mean rate: 5.0 #0.1
+            scale: 0.0
