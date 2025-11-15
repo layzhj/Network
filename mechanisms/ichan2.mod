@@ -12,9 +12,9 @@ UNITS {
 ? interface 
 NEURON { 
     SUFFIX ichan2
-    USEION nat READ enat WRITE inat
-    USEION kf READ ekf WRITE ikf
-    USEION ks READ eks WRITE iks
+    USEION nat READ enat WRITE inat CHARGE 1
+    USEION kf READ ekf WRITE ikf CHARGE 1
+    USEION ks READ eks WRITE iks CHARGE 1
     NONSPECIFIC_CURRENT il 
     RANGE  gnat, gkf, gks
     RANGE gnatbar, gkfbar, gksbar, gl, el
