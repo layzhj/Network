@@ -69,10 +69,6 @@ FUNCTION invl(mean (ms)) (ms) {
 		invl = (1. - noise)*mean + noise*mean*erand()
 	}
 }
-VERBATIM
-double nrn_random_pick(void* r);
-void* nrn_random_arg(int argpos);
-ENDVERBATIM
 
 FUNCTION erand() {
 VERBATIM
@@ -82,7 +78,7 @@ VERBATIM
 		: each instance. However, the corresponding hoc Random
 		: distribution MUST be set to Random.negexp(1)
 		*/
-		_lerand = nrn_random_pick(_p_donotuse);
+		_lerand = nrn_random_pick((Rand*)_p_donotuse);
 	}else{
 ENDVERBATIM
 		: the old standby. Cannot use if reproducible parallel sim

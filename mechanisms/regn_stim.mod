@@ -81,10 +81,6 @@ FUNCTION invl(mean (ms)) (ms) {
 	}
 	tspike = tspike + mean
 }
-VERBATIM
-double nrn_random_pick(void* r);
-void* nrn_random_arg(int argpos);
-ENDVERBATIM
 
 FUNCTION erand() {
 VERBATIM
@@ -94,7 +90,7 @@ VERBATIM
 		: each instance. However, the corresponding hoc Random
 		: distribution MUST be set to Random.normal(0, 1) (BPG)
 		*/
-		_lerand = nrn_random_pick(_p_donotuse);
+		_lerand = nrn_random_pick((Rand*)_p_donotuse);
 	}else{
 ENDVERBATIM
 		: the old standby. Cannot use if reproducible parallel sim
